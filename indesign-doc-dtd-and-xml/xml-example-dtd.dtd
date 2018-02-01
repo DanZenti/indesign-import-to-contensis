@@ -1,0 +1,14 @@
+<!ELEMENT Magazine (Cover,Stories)>
+<!ELEMENT Cover (CoverTitle,CoverSubtitle)>
+<!ELEMENT CoverTitle (#PCDATA)>
+<!ELEMENT CoverSubtitle (#PCDATA)>
+<!ELEMENT Stories (Story*)>
+<!ELEMENT Story (StoryHeading*,StoryIntroduction*,StorySubHeading*,StoryText*,StoryImage*,StorySubHeading*,StoryImage*,FeatureImage*)*>
+<!ELEMENT StoryHeading (#PCDATA)>
+<!ELEMENT StoryIntroduction (#PCDATA)>
+<!ELEMENT StoryText (#PCDATA)>
+<!ELEMENT StorySubHeading (#PCDATA)>
+<!ELEMENT StoryImage EMPTY>
+<!ATTLIST StoryImage href CDATA "">
+<!ELEMENT FeatureImage EMPTY>
+<!ATTLIST FeatureImage href CDATA "">

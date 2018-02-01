@@ -4,10 +4,10 @@ An example of bringing tagged content from an Adobe Indesign document into Conte
 
 ## What it contains
 
-> An example Indesign file - a basic magazine with multiple stories with tagged items.
-> DTD file to define the Indesign XML structure.
-> An example of the XML file.
-> A .NET project utilising the Contensis Management API to read the XML and create Content Entries in Contensis.
+*An example Indesign file - a basic magazine with multiple stories with tagged items.
+*DTD file to define the Indesign XML structure.
+*An example of the XML file.
+*A .NET project utilising the Contensis Management API to read the XML and create Content Entries in Contensis.
 
 ## You'll also need to create a Content Type
 

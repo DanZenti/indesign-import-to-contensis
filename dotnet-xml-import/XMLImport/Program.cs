@@ -32,18 +32,19 @@ namespace ParsingXml
             var project = client.Projects.Get("Website");
 
             // Load the XML file into an XElement
-            XElement doc = XElement.Load(@"C:\Training\ManagementAPI\dotnet-xml-import\XMLImport\finalXML.xml");
+            XElement doc = XElement.Load(@"C:\Sites\indesign-import-to-contensis\dotnet-xml-import\XMLImport\finalXML.xml");
             // Navigate the XElement to create the stories
             IEnumerable<Story> stories = (from x in doc.Descendants("Stories").Elements("Story")
-                                            select new Story
-                                            {
-                                                Title = x.Element("SectionHeading").Value,
-                                                Introduction = x.Element("SectionIntroduction").Value
-                                            }).ToList();
+                                          select new Story
+                                          {
+                                              Title = x.Element("StoryHeading").Value,
+                                              Introduction = x.Element("StoryIntroduction").Value,
+                                              StoryBody = x.Element("StoryBody").Elements()
+                                          }).ToList();
             // Local testing in console
             //Console.WriteLine("Story title: " + stories.First().Title);
             //Console.WriteLine("Story Intro: " + stories.First().Introduction);
-            //Console.WriteLine("Feature Image Href: " + stories.First().FeatureImage);
+            //Console.WriteLine("Story Body: " + stories.First().StoryBody);
             //Console.ReadLine();
 
             // Iterate through stories and call entry creator
@@ -53,16 +54,43 @@ namespace ParsingXml
             }
         }
 
+        private static string ElementCleaner(XElement el)
+        {
+            string s = "";
+            switch (el.Name.LocalName)
+            {
+                case "StoryText":
+                    s = "<p>" + el.Value + "</p>";
+                    break;
+                case "StorySubHeading":
+                    s = "<h2>" + el.Value + "</h2>";
+                    break;
+            }
+            return s;
+        }
+
         // Create entries 
         private static void CreateEntryFromXML(Project project, Story story)
         {
             // Set-up a new story entry
             var storyEntry = project.Entries.New("story");
 
+            var composer = new ComposedField();
+            string html = "";
+            foreach (XElement el in story.StoryBody)
+            {
+                html = html + ElementCleaner(el);
+            }
+            byte[] bytes = Encoding.Default.GetBytes(html);
+            html = Encoding.UTF8.GetString(bytes);
+
+            composer.Add(new ComposedFieldItem("storyMarkup", html));
+            storyEntry.Set("storyComposer", composer);
+
+
             // Set each field value
             storyEntry.Set("title", story.Title);
             storyEntry.Set("subtitle", story.Introduction);
-            //storyEntry.Set("featureImage", story.FeatureImage);
 
             // Save and publish the story
             storyEntry.Save();

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace StoryImport
 {
@@ -6,7 +9,7 @@ namespace StoryImport
     {
         public string Title { get; set; }
         public string Introduction { get; set; }
-        public string StoryBody { get; set; }
+        public IEnumerable<XElement> StoryBody { get; set; }
         public string FeatureImage { get; set; }
     }
 }

@@ -25,8 +25,8 @@ namespace ParsingXml
 
             // Create the management client
             var client = ManagementClient.Create("https://cms-danb-dev.cloud.contensis.com",
-                "f39cc495-2640-4f55-a39c-07b8d49692f0",
-                "34bd681443474c3fbb13d361ab9a04c6-a7c40152960f41ef98cc3ecd4c1dea28-f3963186a3a94ca0a19b327a29d5a2b7");
+                "89a9b5e6-8d55-435b-bf02-dff9785a7499",
+                "ac31e135f6cd41838f360531b6b2d78f-fa55fc24628c4498a0f90a2065519c15-f6fdd210941044a4ad59dd5014a84049");
 
             // Get the project
             var project = client.Projects.Get("Website");
@@ -41,17 +41,19 @@ namespace ParsingXml
                                               Introduction = x.Element("StoryIntroduction").Value,
                                               StoryBody = x.Element("StoryBody").Elements()
                                           }).ToList();
-            // Local testing in console
-            //Console.WriteLine("Story title: " + stories.First().Title);
-            //Console.WriteLine("Story Intro: " + stories.First().Introduction);
-            //Console.WriteLine("Story Body: " + stories.First().StoryBody);
-            //Console.ReadLine();
 
             // Iterate through stories and call entry creator
             foreach (var story in stories)
             {
                 CreateEntryFromXML(project, story);
+
+                // Local testing in console
+                //Console.WriteLine("Story title: " + story.Title);
+                //Console.WriteLine("Story Intro: " + story.Introduction);
+                
+
             }
+            //Console.ReadLine();
         }
 
         private static string ElementCleaner(XElement el)
@@ -94,7 +96,7 @@ namespace ParsingXml
 
             // Save and publish the story
             storyEntry.Save();
-            storyEntry.Publish();
+            //storyEntry.Publish();
             Console.WriteLine($"Saved story {storyEntry.Get("title")}");
         }
     }

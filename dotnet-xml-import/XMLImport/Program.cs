@@ -24,12 +24,12 @@ namespace ParsingXml
         {
 
             // Create the management client
-            var client = ManagementClient.Create("https://cms-danb-dev.cloud.contensis.com",
-                "89a9b5e6-8d55-435b-bf02-dff9785a7499",
-                "ac31e135f6cd41838f360531b6b2d78f-fa55fc24628c4498a0f90a2065519c15-f6fdd210941044a4ad59dd5014a84049");
+            var client = ManagementClient.Create("<CMS URL>",
+                "<Client ID>",
+                "<Shared Secret>");
 
             // Get the project
-            var project = client.Projects.Get("Website");
+            var project = client.Projects.Get("<Project Id>");
 
             // Load the XML file into an XElement
             XElement doc = XElement.Load(@"C:\Sites\indesign-import-to-contensis\dotnet-xml-import\XMLImport\finalXML.xml");
